@@ -14,7 +14,7 @@ function App() {
     }
   };
 
-  const nameHandler = (event, i) => {
+  const nameHandler = (event) => {
     setPerson1({ ...person1, nom: event.target.value });
     //setPerson2({ ...person2, nom: "Houssem" });
   };
