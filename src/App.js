@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Person from "./Person/Person";
 
@@ -14,6 +14,11 @@ function App() {
     }
   };
 
+  const nameHandler = (event, i) => {
+    setPerson1({ ...person1, nom: event.target.value });
+    //setPerson2({ ...person2, nom: "Houssem" });
+  };
+
   return (
     <div className="App">
       <h1>Hi, I'm a React App </h1>
@@ -23,6 +28,7 @@ function App() {
         name={person1.nom}
         age={person1.age}
         click={() => switchHandler("Chehine", 1)}
+        changed={nameHandler}
       >
         My Hobbies: Boxing
       </Person>
