@@ -19,11 +19,21 @@ function App() {
     //setPerson2({ ...person2, nom: "Houssem" });
   };
 
+  const style= {
+    backgroundColor: 'white',
+    font: 'inherit',
+    border: '1x solid blue',
+    padding: '8px',
+    cursor: 'pointer'
+  };
+
   return (
     <div className="App">
       <h1>Hi, I'm a React App </h1>
       <p>This is really working! </p>
-      <button onClick={() => switchHandler("Chehine", 1)}>Switch Name</button>
+      <button 
+      style={style}
+      onClick={() => switchHandler("Chehine", 1)}>Switch Name</button>
       <Person
         name={person1.nom}
         age={person1.age}
