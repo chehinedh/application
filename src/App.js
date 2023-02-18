@@ -4,8 +4,8 @@ import Person from "./Person/Person";
 
 function App() {
   const [persons, setPersons] = useState([
-    { name: "chehine", age: 23 },
-    { name: "houssem", age: 26 },
+    { id: "1", name: "chehine", age: 23 },
+    { id: "2", name: "houssem", age: 26 },
   ]);
 
   const [showPersons, setShowPersons] = useState(false);
@@ -48,7 +48,7 @@ function App() {
       <div>
         {persons.map((person, index) => (
           <Person
-            key={index}
+            key={person.id}
             name={person.name}
             age={person.age}
             changed={(event) => nameHandler(event, index)}
