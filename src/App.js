@@ -39,7 +39,8 @@ function App() {
   };
 
   const style = {
-    backgroundColor: "white",
+    backgroundColor: "green",
+    color:"white",
     font: "inherit",
     border: "1x solid blue",
     padding: "8px",
@@ -61,13 +62,17 @@ function App() {
         ))}
       </div>
     );
+
+    style.backgroundColor ='red';
   }
 
   return (
     <div className="App">
       <h1>Hi, I'm a React App</h1>
       <p>This is really working!</p>
-      <button style={style} onClick={togglePersonHandler}>
+      <button 
+        style={style} 
+        onClick={togglePersonHandler}>
         Toggle Persons
       </button>
       {personsList}
