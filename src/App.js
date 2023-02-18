@@ -18,16 +18,20 @@ function App() {
     });
   };
 
-  const nameHandler = (event, index) => {
-    const newName = event.target.value;
-    setPersons(
-      persons.map((person, i) => {
-        if (i === index) {
-          return { ...person, name: newName };
-        }
-        return person;
-      })
-    );
+  const nameHandler = (event, id) => {
+    const personIndex = persons.findIndex((p) => {
+      return p.id === id;
+    });
+
+    const person = {
+      ...persons[personIndex],
+      name: event.target.value,
+    };
+
+    const newPersons = [...persons];
+    newPersons[personIndex] = person;
+
+    setPersons(newPersons);
   };
 
   const togglePersonHandler = () => {
@@ -51,10 +55,9 @@ function App() {
             key={person.id}
             name={person.name}
             age={person.age}
-            changed={(event) => nameHandler(event, index)}
-            click={()=>deletePersonHandler(index) }            
+            changed={(event) => nameHandler(event, person.id)}
+            click={() => deletePersonHandler(index)}
           />
-
         ))}
       </div>
     );
@@ -62,8 +65,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Hi, I'm a React App </h1>
-      <p>This is really working! </p>
+      <h1>Hi, I'm a React App</h1>
+      <p>This is really working!</p>
       <button style={style} onClick={togglePersonHandler}>
         Toggle Persons
       </button>
