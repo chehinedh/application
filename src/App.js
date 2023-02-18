@@ -10,15 +10,12 @@ function App() {
 
   const [showPersons, setShowPersons] = useState(false);
 
-  const switchHandler = (newName, index) => {
-    setPersons(
-      persons.map((person, i) => {
-        if (i === index) {
-          return { ...person, name: newName };
-        }
-        return person;
-      })
-    );
+  const deletePersonHandler = (index) => {
+    setPersons((persons) => {
+      const newPersons = [...persons];
+      newPersons.splice(index, 1);
+      return newPersons;
+    });
   };
 
   const nameHandler = (event, index) => {
@@ -54,9 +51,10 @@ function App() {
             key={index}
             name={person.name}
             age={person.age}
-            click={() => switchHandler("Chehine", index)}
             changed={(event) => nameHandler(event, index)}
+            click={()=>deletePersonHandler(index) }            
           />
+
         ))}
       </div>
     );
