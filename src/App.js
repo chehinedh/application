@@ -3,23 +3,35 @@ import "./App.css";
 import Person from "./Person/Person";
 
 function App() {
-  const [person1, setPerson1] = useState({ nom: "chehine", age: "23" });
-  const [person2, setPerson2] = useState({ nom: "houssem", age: "26" });
-
-  const switchHandler = (newName, person) => {
-    if (person === 1) {
-      setPerson1({ ...person1, nom: newName });
-    } else {
-      setPerson2({ ...person2, nom: newName });
-    }
-  };
-
-  const nameHandler = (event) => {
-    setPerson1({ ...person1, nom: event.target.value });
-    //setPerson2({ ...person2, nom: "Houssem" });
-  };
+  const [persons, setPersons] = useState([
+    { name: "chehine", age: 23 },
+    { name: "houssem", age: 26 },
+  ]);
 
   const [showPersons, setShowPersons] = useState(false);
+
+  const switchHandler = (newName, index) => {
+    setPersons(
+      persons.map((person, i) => {
+        if (i === index) {
+          return { ...person, name: newName };
+        }
+        return person;
+      })
+    );
+  };
+
+  const nameHandler = (event, index) => {
+    const newName = event.target.value;
+    setPersons(
+      persons.map((person, i) => {
+        if (i === index) {
+          return { ...person, name: newName };
+        }
+        return person;
+      })
+    );
+  };
 
   const togglePersonHandler = () => {
     setShowPersons(!showPersons);
@@ -33,23 +45,19 @@ function App() {
     cursor: "pointer",
   };
 
-  let persons = null;
+  let personsList = null;
   if (showPersons) {
-    persons = (
+    personsList = (
       <div>
-        <Person
-          name={person1.nom}
-          age={person1.age}
-          click={() => switchHandler("Chehine", 1)}
-          changed={nameHandler}
-        >
-          My Hobbies: Boxing
-        </Person>
-        <Person
-          name={person2.nom}
-          age={person2.age}
-          click={() => switchHandler("Houssem", 2)}
-        />
+        {persons.map((person, index) => (
+          <Person
+            key={index}
+            name={person.name}
+            age={person.age}
+            click={() => switchHandler("Chehine", index)}
+            changed={(event) => nameHandler(event, index)}
+          />
+        ))}
       </div>
     );
   }
@@ -58,10 +66,10 @@ function App() {
     <div className="App">
       <h1>Hi, I'm a React App </h1>
       <p>This is really working! </p>
-      <button style={style} onClick={() => togglePersonHandler()}>
+      <button style={style} onClick={togglePersonHandler}>
         Toggle Persons
       </button>
-      {persons}
+      {personsList}
     </div>
   );
 }
