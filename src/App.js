@@ -5,7 +5,6 @@ import Person from "./Person/Person";
 function App() {
   const [person1, setPerson1] = useState({ nom: "chehine", age: "23" });
   const [person2, setPerson2] = useState({ nom: "houssem", age: "26" });
-  
 
   const switchHandler = (newName, person) => {
     if (person === 1) {
@@ -22,42 +21,47 @@ function App() {
 
   const [showPersons, setShowPersons] = useState(false);
 
-const togglePersonHandler = () => {
-  setShowPersons(!showPersons);
-};
-
-  const style= {
-    backgroundColor: 'white',
-    font: 'inherit',
-    border: '1x solid blue',
-    padding: '8px',
-    cursor: 'pointer'
+  const togglePersonHandler = () => {
+    setShowPersons(!showPersons);
   };
+
+  const style = {
+    backgroundColor: "white",
+    font: "inherit",
+    border: "1x solid blue",
+    padding: "8px",
+    cursor: "pointer",
+  };
+
+  let persons = null;
+  if (showPersons) {
+    persons = (
+      <div>
+        <Person
+          name={person1.nom}
+          age={person1.age}
+          click={() => switchHandler("Chehine", 1)}
+          changed={nameHandler}
+        >
+          My Hobbies: Boxing
+        </Person>
+        <Person
+          name={person2.nom}
+          age={person2.age}
+          click={() => switchHandler("Houssem", 2)}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="App">
       <h1>Hi, I'm a React App </h1>
       <p>This is really working! </p>
       <button style={style} onClick={() => togglePersonHandler()}>
-        Switch Name
+        Toggle Persons
       </button>
-      {showPersons === true ? (
-        <div>
-          <Person
-            name={person1.nom}
-            age={person1.age}
-            click={() => switchHandler("Chehine", 1)}
-            changed={nameHandler}
-          >
-            My Hobbies: Boxing
-          </Person>
-          <Person
-            name={person2.nom}
-            age={person2.age}
-            click={() => switchHandler("Houssem", 2)}
-          />
-        </div>
-      ) : null}
+      {persons}
     </div>
   );
 }
