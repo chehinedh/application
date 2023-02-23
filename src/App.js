@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import Styled from 'styled-components';
+import Styled from "styled-components";
 import "./App.css";
 import Person from "./Person/Person";
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 
 const StyledButton = Styled.button` 
     background-color: ${(props) => (props.alt ? "red" : "green")};
@@ -72,13 +73,14 @@ function App() {
     personsList = (
       <div>
         {persons.map((person, index) => (
-          <Person
-            key={person.id}
-            name={person.name}
-            age={person.age}
-            changed={(event) => nameHandler(event, person.id)}
-            click={() => deletePersonHandler(index)}
-          />
+          <ErrorBoundary key={person.id}>
+            <Person
+              name={person.name}
+              age={person.age}
+              changed={(event) => nameHandler(event, person.id)}
+              click={() => deletePersonHandler(index)}
+            />
+          </ErrorBoundary>
         ))}
       </div>
     );
@@ -90,25 +92,24 @@ function App() {
     // };
   }
 
-  let classes =[]; 
+  let classes = [];
   if (persons.length <= 2) {
-    classes.push('red'); // classes = ['red']
+    classes.push("red"); // classes = ['red']
   }
   if (persons.length <= 1) {
-    classes.push('bold'); // classes = ['red','bold']
+    classes.push("bold"); // classes = ['red','bold']
   }
 
   return (
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(" ")}>This is really working!</p>
-        <StyledButton alt={setShowPersons} onClick={togglePersonHandler}>
-          Toggle Persons
-        </StyledButton>
-        {personsList}
-      </div>
+    <div className="App">
+      <h1>Hi, I'm a React App</h1>
+      <p className={classes.join(" ")}>This is really working!</p>
+      <StyledButton alt={setShowPersons} onClick={togglePersonHandler}>
+        Toggle Persons
+      </StyledButton>
+      {personsList}
+    </div>
   );
 }
 
 export default App;
-
