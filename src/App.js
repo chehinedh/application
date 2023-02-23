@@ -97,5 +97,5 @@ function App() {
   );
 }
 
-export default Radium(App);
+export default App;
 
