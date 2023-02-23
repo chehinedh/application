@@ -1,12 +1,27 @@
 import React, { useState } from "react";
-import Radium, { StyleRoot } from "radium";
+import Styled from 'styled-components';
 import "./App.css";
 import Person from "./Person/Person";
+
+const StyledButton = Styled.button` 
+    background-color: ${(props) => (props.alt ? "red" : "green")};
+    color: white;
+    font: inherit;
+    border: 1px solid blue;
+    padding: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: ${(props) => (props.alt ? "salmon" : "lightgreen")};
+      color: black
+      }
+  `;
 
 function App() {
   const [persons, setPersons] = useState([
     { id: "1", name: "chehine", age: 23 },
     { id: "2", name: "houssem", age: 26 },
+    { id: "3", name: "rayen", age: 24 },
   ]);
 
   const [showPersons, setShowPersons] = useState(false);
@@ -39,18 +54,18 @@ function App() {
     setShowPersons(!showPersons);
   };
 
-  const style = {
-    backgroundColor: "green",
-    color: "white",
-    font: "inherit",
-    border: "1x solid blue",
-    padding: "8px",
-    cursor: "pointer",
-    ':hover': {
-      backgroundColor: 'lightgreen',
-      color: 'black'
-    }
-  };
+  // const style = {
+  //   backgroundColor: "green",
+  //   color: "white",
+  //   font: "inherit",
+  //   border: "1x solid blue",
+  //   padding: "8px",
+  //   cursor: "pointer",
+  //   ':hover': {
+  //     backgroundColor: 'lightgreen',
+  //     color: 'black'
+  //   }
+  // };
 
   let personsList = null;
   if (showPersons) {
@@ -68,11 +83,11 @@ function App() {
       </div>
     );
 
-    style.backgroundColor = 'red';
-    style[':hover'] = {
-      backgroundColor: 'lightred',
-      color: 'black'
-    };
+    // style.backgroundColor = 'red';
+    // style[':hover'] = {
+    //   backgroundColor: 'lightred',
+    //   color: 'black'
+    // };
   }
 
   let classes =[]; 
@@ -84,16 +99,14 @@ function App() {
   }
 
   return (
-    <StyleRoot>
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p className={classes.join(" ")}>This is really working!</p>
-        <button style={style} onClick={togglePersonHandler}>
+        <StyledButton alt={setShowPersons} onClick={togglePersonHandler}>
           Toggle Persons
-        </button>
+        </StyledButton>
         {personsList}
       </div>
-    </StyleRoot>
   );
 }
 
